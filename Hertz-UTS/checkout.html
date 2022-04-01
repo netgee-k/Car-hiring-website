@@ -1,0 +1,125 @@
+
+<html>
+    <head></head>
+
+    <title>Check Out</title>
+
+    <link rel="stylesheet" href="index5.css">
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" type="text/javascript"></script>
+
+    <script type="text/javascript">
+
+        let cart;
+        $(document).ready(function(){
+            let total = window.sessionStorage.getItem("hertz@total")
+            $(".total").append(`<h3>Total: ${total}</h3>`)
+        })
+        
+        
+        
+        function book(){
+              let regex = /\S+@\S+\.\S+/;
+
+              let email = document.getElementById("email").value
+
+              if(regex.test(email)){
+                alert("Dear customer, thanks for your booking, you will be billed and contacted shorly.")
+                
+                window.location.href="index.html"
+
+                window.sessionStorage.clear();
+              } else{
+
+                alert("Invalid email!")
+
+              }
+        }
+    </script>
+
+    <body>
+
+        <div class="header">
+            
+            <div></div>
+             
+            <div><p style="color:white;font-size:30px;font-family: 'dfpheibold-b5regular'">Check Out</p></div>
+
+            <div></div>
+        </div>
+
+        
+        <form onSubmit="book(); return false;">
+            
+            <div style="display:flex;">
+                <p>Please fill in your details.</p>
+               
+
+            </div>
+            <div class="checkout-form">
+                <div>
+                    <label for="fname" class="required"> First Name</label>
+                    <input type="text" id="fname" name="firstname" required>
+                </div>
+                <div>
+                    <label for="fname" class="required"> Last Name</label>
+                    <input type="text" id="lname" name="lastname" required>
+                </div>
+                <div>
+                    <label for="email" class="required"> Email address</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div>
+                    <label for="adr1" class="required"> Address Line 1</label>
+                    <input type="text" id="adr1" name="address" required>
+                </div>
+                <div>
+                    <label for="adr2" class="not-required"> Address Line 2</label>
+                    <input type="text" id="adr2" name="address">
+                </div>
+                <div>
+                    <label for="city" class="required">City</label>
+                    <input type="text" id="city" name="city" required>
+                </div>
+                <div>
+                    <label for="state" class="required">State</label>
+                    <select name="state" id="state">
+                      <option value="nsw">New South Wales</option>
+                      <option value="qld">Queensland</option>
+                      <option value="sa">South Australia</option>
+                      <option value="tas">Tasmania</option>
+                      <option value="vic">Victoria</option>
+                      <option value="wa">Western Australia</option>
+                      <option value="nt">Northern Territory</option>
+                      <option value="act">Australian Capital Territory</option>
+                      <option value="jbt">Jervis Bay Territory</option>
+                      <option value="cx">Christmas Island</option>
+                      <option value="cocos">Cocos (Keelings) Islands</option>
+                      <option value="nf">Norfolk Island</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="zip" class="required">Post Code</label>
+                    <input type="text" id="zip" name="zip" required>
+                </div>
+                <div>
+                    <label for="state" class="required">Payment Type</label>
+                    <select name="state" id="state">
+                      <option value="visa">Visa</option>
+                      <option value="mastercard">Mastercard</option>
+                      <option value="amex">AMEX</option>
+                      <option value="WechatPay">Wechat Pay</option>
+                      <option value="Alipay">Alipay</option>
+
+                    </select>
+                </div>
+            </div>
+            
+            <div class="total"></div>
+            <div>
+               
+               <input type="submit" value="Book" class="button add">
+            </div>
+        </form>
+    </body>
+</html>

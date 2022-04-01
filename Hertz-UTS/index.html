@@ -1,0 +1,95 @@
+<!-- car description from Wikipedia -->
+<html>
+    <head></head>
+
+    <title>Hertz - UTS</title>
+
+    <link rel="stylesheet" href="index5.css">
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" type="text/javascript"></script>
+
+    <script type="text/javascript">
+
+        let carsArray = [] 
+
+        let shoppingCart = window.sessionStorage.getItem("hertz@cart") ? JSON.parse(window.sessionStorage.getItem("hertz@cart")) : [] 
+
+        $(document).ready(function(){
+            $.getJSON("cars3.json", function(result){
+                carsArray = result;
+              $.each(result, function(i, field){
+                 
+                  let carComponent = 
+                  `
+                   <div class="card card-1">
+                    <div class="car-img-container"><img style="width:400px;height:400px;" src=${field.img} alt="${field.brand} ${field.model}"></div>
+                    <p style="font-size:32px">${field.brand} ${field.model}</p>
+                    <p><b>Category: </b>${field.category}</p>
+                    <p><b>Year: </b>${field.model_year}</p>
+                    <p><b>Mileage: </b>${field.mileage} km</p>
+                    <p><b>Fuel Type: </b>${field.fuel_type}</p>
+                    <p><b>Seats: </b>${field.seats}</p>
+                    <p><b>Price/day: $</b>${field.price_per_day}</p>
+                    <p><b>Availability: </b>${field.availability}</p>
+                    <br />
+                    <p><b>Description: </b>${field.description}</p>
+                    <br /><br />
+                    <button class="button add" onClick="addCart(${field.id})">Reserve Now</button>
+                   </div>
+                  `
+                  $(".main").append(carComponent);
+                });
+            });
+        });
+        
+        
+        function addCart(id){
+            
+
+            let car = carsArray.find(car => car.id == id)
+           
+            let cart = shoppingCart.find(car => car.id == id)
+            
+            let message = `Sorry, the car is not available now. Please try other cars.`;
+            
+            
+            if(cart){
+                message = `You have booked ${cart.brand} ${cart.model} already.`
+            } else if(car.availability == "True"){ 
+
+
+                shoppingCart.push(car)
+                console.log("shoppingCart", shoppingCart)
+                message = `Add to the cart successfully.`
+            }
+            
+            alert(message)
+            return true
+        }
+        
+       
+        function checkCart(){
+            
+            window.sessionStorage.setItem("hertz@cart", JSON.stringify(shoppingCart));
+            
+            window.location.href="cart.html"
+        }
+        
+    </script>
+
+
+    <body style="background-color:grey">
+        
+        <div class="header">
+            
+            <div></div>
+             
+            <div><p style="color:white;font-size:30px;font-family: 'dfpheibold-b5regular'">Welcome to Hertz-UTS!</p></div>
+
+            <div><button class="button reserve" onClick="checkCart()">View Reservation</button></div>
+        </div>
+        
+
+        <div class="main"></div>
+    </body>
+</html>
